@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390px, initial-scale=1.0">
+<title>Huffman Web Design - Banking</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .phone {
+    width: 390px;
+    min-height: 844px;
+    background: #f0f4ff;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Status Bar */
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 24px 8px;
+    background: #f0f4ff;
+  }
+  .status-time {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a2e;
+  }
+  .status-icons {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .status-icons svg {
+    fill: #1a1a2e;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 24px 16px;
+    background: #f0f4ff;
+  }
+  .header-icon {
+    color: #1e3a8a;
+    font-size: 20px;
+  }
+  .header-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e3a8a;
+    letter-spacing: -0.3px;
+  }
+
+  /* Main Content */
+  .content {
+    flex: 1;
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Card */
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  }
+
+  /* Checking section */
+  .section-label {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-bottom: 6px;
+  }
+  .balance-amount {
+    font-size: 36px;
+    font-weight: 800;
+    color: #0f1f5c;
+    letter-spacing: -1px;
+    margin-bottom: 2px;
+  }
+  .balance-sub {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-bottom: 14px;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid #f1f5f9;
+    margin: 0 -20px;
+  }
+
+  /* Account rows */
+  .account-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .account-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .account-row:first-of-type {
+    padding-top: 14px;
+  }
+
+  .account-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .icon-blue { background: #1e3a8a; }
+  .icon-teal { background: #0d9488; }
+  .icon-green { background: #059669; }
+
+  .account-icon svg {
+    width: 18px;
+    height: 18px;
+    fill: white;
+  }
+
+  .account-info {
+    flex: 1;
+  }
+  .account-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1e3a8a;
+  }
+  .account-number {
+    font-size: 12px;
+    color: #94a3b8;
+  }
+  .account-amount {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0f1f5c;
+  }
+  .chevron {
+    color: #cbd5e1;
+    font-size: 16px;
+    margin-left: 4px;
+  }
+
+  /* Payments section */
+  .payments-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0 10px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .payments-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #eff6ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .payments-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: #1e3a8a;
+    fill: none;
+  }
+  .payments-label {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1e3a8a;
+  }
+  .payments-amount {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0f1f5c;
+  }
+  .payments-sub {
+    font-size: 13px;
+    color: #94a3b8;
+    padding-top: 10px;
+  }
+
+  /* Bottom Nav */
+  .bottom-nav {
+    background: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 12px 0 24px;
+    border-top: 1px solid #f1f5f9;
+    margin-top: auto;
+  }
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+  }
+  .nav-item svg {
+    width: 24px;
+    height: 24px;
+  }
+  .nav-item.active svg { stroke: #1e3a8a; }
+  .nav-item:not(.active) svg { stroke: #94a3b8; }
+  .nav-label {
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .nav-item.active .nav-label { color: #1e3a8a; font-weight: 700; }
+  .nav-item:not(.active) .nav-label { color: #94a3b8; }
+</style>
+</head>
+<body>
+<div class="phone">
+
+
+
+  <!-- Header -->
+  <div class="header">
+    <span style="font-size:22px;">🏗️</span>
+    <span class="header-title">Huffman Web Design</span>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+
+    <!-- Checking Card -->
+    <div class="card">
+      <div class="section-label">Checking</div>
+      <div class="balance-amount">$74,318.54</div>
+      <div class="balance-sub">Total available balance</div>
+      <hr class="divider">
+
+      <!-- Bluevine Checking -->
+      <div class="account-row">
+        <div class="account-icon icon-blue">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+        </div>
+        <div class="account-info">
+          <div class="account-name">Bluevine Checking</div>
+          <div class="account-number">(...1234)</div>
+        </div>
+        <span class="account-amount">$14,856.47</span>
+        <span class="chevron">›</span>
+      </div>
+
+      <!-- Payroll -->
+      <div class="account-row">
+        <div class="account-icon icon-teal">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+        </div>
+        <div class="account-info">
+          <div class="account-name">Payroll</div>
+          <div class="account-number">(...6459)</div>
+        </div>
+        <span class="account-amount">$27,490.82</span>
+        <span class="chevron">›</span>
+      </div>
+
+      <!-- Tax Savings -->
+      <div class="account-row">
+        <div class="account-icon icon-green">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+        </div>
+        <div class="account-info">
+          <div class="account-name">Tax Savings</div>
+          <div class="account-number">(...6459)</div>
+        </div>
+        <span class="account-amount">$31,971.25</span>
+        <span class="chevron">›</span>
+      </div>
+    </div>
+
+    <!-- Payments Card -->
+    <div class="card">
+      <div class="section-label">Payments</div>
+      <div class="payments-row">
+        <div class="payments-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.8">
+            <rect x="2" y="5" width="20" height="14" rx="2"/>
+            <path d="M2 10h20"/>
+            <path d="M6 15h4"/>
+          </svg>
+        </div>
+        <span class="payments-label">Scheduled</span>
+        <span class="payments-amount">$1,247.50</span>
+        <span class="chevron">›</span>
+      </div>
+      <div class="payments-sub">8 payments in the next 7 days</div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="bottom-nav">
+    <div class="nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z" fill="#dbeafe"/>
+        <path d="M9 21V12h6v9"/>
+      </svg>
+      <span class="nav-label">Home</span>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="7" width="20" height="14" rx="2"/>
+        <path d="M7 7V5a2 2 0 0 1 4 0v2M13 7V5a2 2 0 0 1 4 0v2"/>
+        <path d="M12 12v4M10 14h4"/>
+      </svg>
+      <span class="nav-label">Move Money</span>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="6" width="20" height="13" rx="2"/>
+        <path d="M2 10h20"/>
+        <path d="M7 15h2M15 15h2"/>
+        <path d="M12 4v2"/>
+      </svg>
+      <span class="nav-label">Deposit Check</span>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="4"/>
+        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+      </svg>
+      <span class="nav-label">Profile</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
